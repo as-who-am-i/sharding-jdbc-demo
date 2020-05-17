@@ -1,0 +1,30 @@
+server:
+  port: 10021
+
+spring:
+  shardingsphere:
+    datasource:
+      names: master
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/ds_0?characterEncoding=utf-8&useSSL=false
+        username: root
+        password: 123456
+
+
+    # 分表配置
+    sharding:
+      tables:
+        user:
+          actualDataNodes: master.user_${0..3}
+
+          #inline 表达式
+          tableStrategy:
+            inline:
+              shardingColumn: id
+              algorithmExpression: user_${id.longValue() % 4}
+
+    #打印sharding_jdbc sql
+    props:
+      sql.show: true

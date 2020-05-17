@@ -1,0 +1,60 @@
+server:
+  port: 10022
+
+spring:
+  shardingsphere:
+    datasource:
+      names: ds0,ds1
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/ds_1?characterEncoding=utf-8&useSSL=false
+        username: root
+        password: 123456
+
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/ds_2?characterEncoding=utf-8&useSSL=false
+        username: root
+        password: 123456
+
+
+    sharding:
+      # 分表配置
+      tables:
+        user:
+          actualDataNodes: ds${0..1}.user_${0..2}
+
+          #inline 表达式
+          tableStrategy:
+            inline:
+              shardingColumn: id
+              algorithmExpression: user_${id % 3}
+          #生成id-->雪花策略
+          keyGenerator:
+            column: id
+            type: SNOWFLAKE
+            props:
+              workid: 100
+
+      #分库策略
+      default-database-strategy:
+        inline:
+          shardingColumn: id
+          algorithmExpression: ds${id % 2}
+
+      #广播表，每个数据节点都存在该表
+      broadcast-tables: loudong
+
+    #打印sharding_jdbc sql
+    props:
+      sql.show: true
+
+
+
+mybatis-plus:
+  mapper-locations: ../resources/mapper/*.xml
+  type-aliases-package: com.sharding.east.po
+
+
