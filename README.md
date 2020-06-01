@@ -1,8 +1,11 @@
 # sharding-jdbc-demo 目录结构
 
-难度一般：sharding-jdbc-db-table-springboot：Spring Boot版 Sharding JDBC 分库分表、以及广播表案例(持久层:mybatis-plus)
+sharding-jdbc-db-table-springboot：Spring Boot版 Sharding JDBC 分库分表、以及广播表案例(持久层:mybatis-plus)
 
-难度简单：sharding-jdbc-table-springboot：Spring Boot版 Sharding JDBC 不分库只分表案例(持久层:jpa)
+sharding-jdbc-table-read-write-springboot:  Spring Boot版 Sharding JDBC 分库分表、读写分离案例(持久层:mybatis-plus)
+
+sharding-jdbc-table-springboot：Spring Boot版 Sharding JDBC 不分库只分表案例(持久层:jpa)
+
 
 持续更新
 

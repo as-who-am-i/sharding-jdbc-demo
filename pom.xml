@@ -11,6 +11,7 @@
     <modules>
         <module>sharding-jdbc-table-springboot</module>
         <module>sharding-jdbc-db-table-springboot</module>
+        <module>sharding-jdbc-table-read-write-springboot</module>
     </modules>
 
     <properties>
